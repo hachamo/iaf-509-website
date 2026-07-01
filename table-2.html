@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>טבלת נתונים 2 | יחידת הבקרה האזורית 509</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">יחידת הבקרה האזורית 509</div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">בית</a></li>
+          <li><a href="index.html#about">אודות</a></li>
+          <li><a href="index.html#gallery">גלריה</a></li>
+          <li><a href="index.html#contact">צור קשר</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>רשימת מפעילים מאושרים ופרטי רישיון</h1>
+      <p>הגישה לטבלה מותנית בחתימה על טופס הסכמה</p>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container procedures">
+
+      <form id="consent-form" class="consent-form">
+        <h2>כתב הצהרה, התחייבות וסנקציות למפעיל</h2>
+        <p class="consent-text">
+          אני החתום מטה, מפעיל כלי הטיס המאויש מרחוק, מצהיר ומסכים בזאת לכל הסעיפים הבאים כתנאי סף לקבלת אישור ההטסה:
+        </p>
+        <ul class="consent-list">
+          <li><strong>הכרת נהלי העלייה לאוויר:</strong> אני מצהיר בזאת כי קראתי, הבנתי ואני מכיר על בוריין את כל הנחיות הבטיחות, חוקי הטייס ונהלי העלייה לאוויר הרלוונטיים למרחב זה. אני מתחייב לפעול אך ורק על פי נהלים אלו.</li>
+          <li><strong>הצהרת תשתית, גבהים וגבולות גזרה:</strong> אני מצהיר כי ביצעתי סיור ותכנון מקדים, ואני מכיר את התשתית הקרקעית והטופוגרפית באזור הפעילות. כמו כן, אני מתחייב לעמוד באופן קשיח במגבלות הגובה שנקבעו לי ולא לחרוג מגבולות הגזרה הגיאוגרפיים שהוגדרו עבור המשימה.</li>
+          <li><strong>תיאום מול גורמים בשטח:</strong> אני מצהיר ומבין כי באחריותי הבלעדית לבצע תיאום מלא, מראש ובזמן אמת, מול כל הגורמים הנוספים הפועלים בשטח בטרם העלייה לאוויר ובמהלך הטיסה.</li>
+        </ul>
+        <p class="consent-text">
+          <strong>למען הסר ספק, מובהר בזאת כי:</strong><br>
+          אי-עמידה בנהלים, חריגה מגבולות הגזרה, או היעדר תיאום כנדרש מול הגורמים הרלוונטיים בשטח, מהווים עבירת בטיחות חמורה.
+        </p>
+        <p class="consent-text">
+          במקרה של הפרת תנאי מתנאים אלו, לצבא עומדת הזכות המלאה להגיש תלונה רשמית ומידית לרשות התעופה האזרחית, אשר עלולה להוביל לנקיטת הליכים משפטיים, לרבות שלילת רישיון ההטסה שלי לצמיתות או לתקופה קצובה, וזאת מעבר לכל סנקציה פלילית או אזרחית אחרת הקבועה בחוק.
+        </p>
+
+        <label class="form-field">
+          <span>שם מלא</span>
+          <input type="text" name="full-name" required>
+        </label>
+
+        <label class="form-field">
+          <span>מספר טלפון</span>
+          <input type="tel" name="phone" required pattern="[0-9\-+ ]{9,15}">
+        </label>
+
+        <label class="form-checkbox">
+          <input type="checkbox" id="consent-checkbox" required>
+          <span>קראתי, הבנתי ואני מסכים/ה לאמור לעיל</span>
+        </label>
+
+        <button type="submit" id="consent-submit" disabled>אישור וכניסה לטבלה</button>
+      </form>
+
+      <section id="table-section" class="table-section hidden">
+        <h2>רשימת מפעילים מאושרים</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>סוג רחפן</th>
+                <th>שם המפעיל</th>
+                <th>כמות רחפנים</th>
+                <th>גובה הטסה מירבי</th>
+                <th>מספרי טלפון</th>
+                <th>שעת התחלת פעילות</th>
+                <th>שעת סיום פעילות</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="locked-cell">2000</td>
+                <td class="split-cell"><span>-</span><span>-</span></td>
+                <td>-</td>
+                <td class="locked-cell">17:30</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="locked-cell">2000</td>
+                <td class="split-cell"><span>-</span><span>-</span></td>
+                <td>-</td>
+                <td class="locked-cell">17:30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <p class="footer-contact">לשאלות ובירורים: צרו קשר — 08-6502311 / 08-6502310</p>
+      <p>&copy; 2026 יחידת הבקרה האזורית 509</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
