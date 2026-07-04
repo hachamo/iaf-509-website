@@ -11,10 +11,11 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="logo">יחידת הבקרה האזורית 509</div>
-      <nav class="main-nav">
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="תפריט">☰</button>
+      <nav class="main-nav" id="main-nav">
         <ul>
           <li><a href="index.html">בית</a></li>
-          <li><a href="index.html#about">אודות</a></li>
+          <li><a href="iaf509-interface.html">נהלים וממשק מול יב"א 509</a></li>
           <li><a href="index.html#gallery">גלריה</a></li>
           <li><a href="index.html#contact">צור קשר</a></li>
         </ul>
@@ -41,6 +42,10 @@
           <li><strong>הכרת נהלי העלייה לאוויר:</strong> אני מצהיר בזאת כי קראתי, הבנתי ואני מכיר על בוריין את כל הנחיות הבטיחות, חוקי הטייס ונהלי העלייה לאוויר הרלוונטיים למרחב זה. אני מתחייב לפעול אך ורק על פי נהלים אלו.</li>
           <li><strong>הצהרת תשתית, גבהים וגבולות גזרה:</strong> אני מצהיר כי ביצעתי סיור ותכנון מקדים, ואני מכיר את התשתית הקרקעית והטופוגרפית באזור הפעילות. כמו כן, אני מתחייב לעמוד באופן קשיח במגבלות הגובה שנקבעו לי ולא לחרוג מגבולות הגזרה הגיאוגרפיים שהוגדרו עבור המשימה.</li>
           <li><strong>תיאום מול גורמים בשטח:</strong> אני מצהיר ומבין כי באחריותי הבלעדית לבצע תיאום מלא, מראש ובזמן אמת, מול כל הגורמים הנוספים הפועלים בשטח בטרם העלייה לאוויר ובמהלך הטיסה.</li>
+          <li><strong>זמינות ותקשורת רציפה:</strong> אני מתחייב להיות זמין טלפונית באופן מלא לאורך כל זמן הפעילות, בשני מספרי הטלפון שהוגדרו בטופס, כשהמכשיר טעון, קליט ולא במצב שקט.</li>
+          <li><strong>נחיתת חירום וזמני תגובה:</strong> בקבלת הנחיה מגורמי הבקרה או הצבא להפסיק פעילות, אני מתחייב להנחית את הרחפן במלואו על הקרקע תוך 3 דקות לכל היותר.</li>
+          <li><strong>מגבלות מרחב טיסה:</strong> חל איסור מוחלט לחרוג מהתשתיות, הנתיבים והנפחים שאושרו מראש בתוכנית הטיסה. כל חריגה תיחשב כחדירה למרחב אווירי מאוים.</li>
+          <li><strong>זמני רישום והמשך פעילות:</strong> הרישום היומי נסגר בשעה 17:30. המשך פעילות מעבר לשעה זו מחייב יצירת קשר טלפוני ישיר עם יב"א 509 וקבלת אישור פרטני להארכת חלון הטיסה.</li>
         </ul>
         <p class="consent-text">
           <strong>למען הסר ספק, מובהר בזאת כי:</strong><br>
@@ -57,7 +62,7 @@
 
         <label class="form-field">
           <span>מספר טלפון</span>
-          <input type="tel" name="phone" required pattern="[0-9\-+ ]{9,15}">
+          <input type="tel" name="phone" required pattern="05[0-9]{8}" maxlength="10" inputmode="numeric" title="מספר טלפון חייב להתחיל ב-05 ולהכיל 10 ספרות">
         </label>
 
         <label class="form-checkbox">
@@ -70,8 +75,18 @@
 
       <section id="table-section" class="table-section hidden">
         <h2>רשימת מפעילים מאושרים</h2>
+
+        <p id="table-closed-banner" class="table-closed-banner hidden">
+          המאגר סגור כעת. הרישום פתוח מדי יום בין השעה 08:00 לשעה 19:00.
+        </p>
+
+        <div class="action-buttons hidden" id="action-buttons">
+          <button type="button" id="add-drone-btn" class="add-row-btn">+ הוספת רחפן</button>
+          <button type="button" id="end-flight-btn" class="end-row-btn">סיום הטסה</button>
+        </div>
+
         <div class="table-wrap">
-          <table>
+          <table id="drone-table" data-collection="table2" data-max-height="2000" data-end-time="17:30">
             <thead>
               <tr>
                 <th>סוג רחפן</th>
@@ -81,30 +96,59 @@
                 <th>מספרי טלפון</th>
                 <th>שעת התחלת פעילות</th>
                 <th>שעת סיום פעילות</th>
+                <th>סטטוס הטסה</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td class="locked-cell">2000</td>
-                <td class="split-cell"><span>-</span><span>-</span></td>
-                <td>-</td>
-                <td class="locked-cell">17:30</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td class="locked-cell">2000</td>
-                <td class="split-cell"><span>-</span><span>-</span></td>
-                <td>-</td>
-                <td class="locked-cell">17:30</td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
+
+        <form id="new-drone-form" class="new-drone-form hidden">
+          <label>
+            <span>סוג רחפן</span>
+            <input type="text" name="droneType" required>
+          </label>
+          <label>
+            <span>שם המפעיל</span>
+            <input type="text" name="operatorName" required>
+          </label>
+          <label>
+            <span>כמות רחפנים</span>
+            <input type="number" name="quantity" min="1" required>
+          </label>
+          <label>
+            <span>טלפון 1</span>
+            <input type="tel" name="phone1" required>
+          </label>
+          <label>
+            <span>טלפון 2</span>
+            <input type="tel" name="phone2">
+          </label>
+          <label>
+            <span>שעת התחלת פעילות</span>
+            <input type="time" name="startTime" required>
+          </label>
+          <div class="new-drone-form-actions">
+            <button type="button" id="save-drone-btn">שמור הטסה</button>
+            <button type="button" id="cancel-drone-btn">ביטול</button>
+          </div>
+        </form>
+
+        <form id="end-flight-form" class="new-drone-form hidden">
+          <label>
+            <span>שם המפעיל</span>
+            <input type="text" name="endOperatorName" required>
+          </label>
+          <label>
+            <span>מספר טלפון</span>
+            <input type="tel" name="endPhone" required pattern="05[0-9]{8}" maxlength="10" inputmode="numeric" title="מספר טלפון חייב להתחיל ב-05 ולהכיל 10 ספרות">
+          </label>
+          <div class="new-drone-form-actions">
+            <button type="button" id="confirm-end-flight-btn">אתר וסיים הטסה</button>
+            <button type="button" id="cancel-end-flight-btn">ביטול</button>
+          </div>
+          <p id="end-flight-message" class="end-flight-message hidden"></p>
+        </form>
       </section>
 
     </div>
@@ -118,6 +162,7 @@
   </footer>
 
   <script src="script.js"></script>
+  <script type="module" src="table-realtime.js"></script>
 </body>
 </html>
 

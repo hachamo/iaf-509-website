@@ -21,3 +21,20 @@
     tableSection.classList.remove('hidden');
   });
 })();
+
+// לוגיקת הטבלה בזמן אמת (הוספה/סטטוס/חלון שעות/איפוס יומי) נמצאת ב-table-realtime.js
+
+// תפריט המבורגר לניווט במובייל
+(function () {
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('main-nav');
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+
+  nav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => nav.classList.remove('open'));
+  });
+})();

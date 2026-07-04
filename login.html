@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>התחברות / הרשמה | יחידת הבקרה האזורית 509</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">יחידת הבקרה האזורית 509</div>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="תפריט">☰</button>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="index.html">בית</a></li>
+          <li><a href="iaf509-interface.html">נהלים וממשק מול יב"א 509</a></li>
+          <li><a href="index.html#gallery">גלריה</a></li>
+          <li><a href="index.html#contact">צור קשר</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>התחברות / הרשמה</h1>
+      <p>אזור אישי למפעילי רחפנים</p>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container">
+
+      <div class="auth-tabs">
+        <button type="button" id="tab-login" class="auth-tab active">התחברות</button>
+        <button type="button" id="tab-register" class="auth-tab">הרשמה</button>
+      </div>
+
+      <form id="login-form" class="consent-form auth-form">
+        <label class="form-field">
+          <span>שם משתמש</span>
+          <input type="text" name="username" required>
+        </label>
+        <label class="form-field">
+          <span>סיסמה</span>
+          <input type="password" name="password" required>
+        </label>
+        <p id="login-error" class="end-flight-message hidden"></p>
+        <button type="submit">התחברות</button>
+      </form>
+
+      <form id="register-form" class="consent-form auth-form hidden">
+        <label class="form-field">
+          <span>שם מלא</span>
+          <input type="text" name="fullName" required>
+        </label>
+        <label class="form-field">
+          <span>מספר טלפון</span>
+          <input type="tel" name="phone" required pattern="05[0-9]{8}" maxlength="10" inputmode="numeric" title="מספר טלפון חייב להתחיל ב-05 ולהכיל 10 ספרות">
+        </label>
+        <label class="form-field">
+          <span>שם משתמש</span>
+          <input type="text" name="username" required minlength="3">
+        </label>
+        <label class="form-field">
+          <span>סיסמה</span>
+          <input type="password" name="password" required minlength="6">
+        </label>
+        <label class="form-field">
+          <span>אימות סיסמה</span>
+          <input type="password" name="passwordConfirm" required minlength="6">
+        </label>
+        <p id="register-error" class="end-flight-message hidden"></p>
+        <button type="submit">הרשמה</button>
+      </form>
+
+      <div id="logged-in-panel" class="consent-form auth-form hidden">
+        <p id="logged-in-message"></p>
+        <button type="button" id="logout-btn">התנתקות</button>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <p class="footer-contact">לשאלות ובירורים: צרו קשר — 08-6502311 / 08-6502310</p>
+      <p>&copy; 2026 יחידת הבקרה האזורית 509</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module" src="auth.js"></script>
+</body>
+</html>
