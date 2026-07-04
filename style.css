@@ -776,6 +776,30 @@ body.home-dark .lang-select {
   font-size: 0.9rem;
 }
 
+.nav-auth {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-chip {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.nav-chip:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 body.home-dark .hero::before {
   display: none;
 }

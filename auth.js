@@ -53,6 +53,11 @@ function hideError(el) {
     loginForm.classList.add("hidden");
   });
 
+  const requestedTab = new URLSearchParams(location.search).get("tab");
+  if (requestedTab === "register") {
+    tabRegister.click();
+  }
+
   // --- הרשמה ---
   registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -134,6 +139,7 @@ function hideError(el) {
   });
 
   // --- מצב מחובר/מנותק ---
+  let isFirstAuthCheck = true;
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       const snap = await getDoc(doc(db, "users", user.uid));
@@ -147,7 +153,10 @@ function hideError(el) {
     } else {
       loggedInPanel.classList.add("hidden");
       document.querySelector(".auth-tabs").classList.remove("hidden");
-      tabLogin.click();
+      if (!(isFirstAuthCheck && requestedTab === "register")) {
+        tabLogin.click();
+      }
     }
+    isFirstAuthCheck = false;
   });
 })();

@@ -20,6 +20,13 @@
           <li><a href="index.html#contact">צור קשר</a></li>
         </ul>
       </nav>
+      <div class="nav-auth" id="nav-auth-guest">
+        <a href="login.html?tab=register" class="nav-chip">הרשמה</a>
+        <a href="login.html?tab=login" class="nav-chip">התחברות</a>
+      </div>
+      <div class="nav-auth hidden" id="nav-auth-user">
+        <button type="button" class="nav-chip" id="nav-logout-btn">התנתקות</button>
+      </div>
     </div>
   </header>
 
@@ -163,6 +170,7 @@
 
   <script src="script.js"></script>
   <script type="module" src="table-realtime.js"></script>
+  <script type="module" src="nav-auth.js"></script>
 </body>
 </html>
 
