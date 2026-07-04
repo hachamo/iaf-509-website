@@ -139,7 +139,8 @@ function hideError(el) {
   });
 
   // --- מצב מחובר/מנותק ---
-  let isFirstAuthCheck = true;
+  // previousUser: undefined = עדיין לא נבדק לראשונה, true/false = מצב אחרי בדיקה קודמת
+  let previousUser;
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       const snap = await getDoc(doc(db, "users", user.uid));
@@ -153,10 +154,12 @@ function hideError(el) {
     } else {
       loggedInPanel.classList.add("hidden");
       document.querySelector(".auth-tabs").classList.remove("hidden");
-      if (!(isFirstAuthCheck && requestedTab === "register")) {
+      // מאפסים לטאב "התחברות" רק כשמדובר בהתנתקות אמיתית (לא בטעינת הדף הראשונית),
+      // כדי לא לדרוס בחירה ידנית של המשתמש בטאב "הרשמה"
+      if (previousUser === true) {
         tabLogin.click();
       }
     }
-    isFirstAuthCheck = false;
+    previousUser = !!user;
   });
 })();
