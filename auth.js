@@ -106,6 +106,7 @@ function hideError(el) {
       await setDoc(usernameRef, { uid: cred.user.uid });
 
       registerForm.reset();
+      location.href = "index.html";
     } catch (err) {
       showError(registerError, "שגיאה בהרשמה: " + (err.message || err));
     }
@@ -128,6 +129,7 @@ function hideError(el) {
     try {
       await signInWithEmailAndPassword(auth, usernameToEmail(username), password);
       loginForm.reset();
+      location.href = "index.html";
     } catch (err) {
       showError(loginError, "שם משתמש או סיסמה שגויים.");
     }
@@ -151,9 +153,6 @@ function hideError(el) {
       loginForm.classList.add("hidden");
       registerForm.classList.add("hidden");
       document.querySelector(".auth-tabs").classList.add("hidden");
-
-      // אחרי התחברות/הרשמה מוצלחת - חזרה למסך הבית
-      location.href = "index.html";
     } else {
       loggedInPanel.classList.add("hidden");
       document.querySelector(".auth-tabs").classList.remove("hidden");
