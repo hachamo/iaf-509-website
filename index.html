@@ -12,24 +12,32 @@
     <div class="container header-inner">
       <div class="logo">
         <img class="logo-emblem" src="images/unit-509-emblem.png" alt="סמל יחידת הבקרה האזורית 509">
-        <span>יחידת הבקרה האזורית 509</span>
+        <span data-i18n="unit-name">יחידת הבקרה האזורית 509</span>
       </div>
       <button type="button" class="nav-toggle" id="nav-toggle" aria-label="תפריט">☰</button>
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li><a href="index.html" class="active">בית</a></li>
-          <li><a href="iaf509-interface.html">נהלים וממשק מול יב"א 509</a></li>
-          <li><a href="#gallery">גלריה</a></li>
-          <li><a href="#contact">צור קשר</a></li>
+          <li><a href="index.html" class="active" data-i18n="nav-home">בית</a></li>
+          <li><a href="iaf509-interface.html" data-i18n="nav-interface">נהלים וממשק מול יב"א 509</a></li>
+          <li><a href="#gallery" data-i18n="nav-gallery">גלריה</a></li>
+          <li><a href="#contact" data-i18n="nav-contact">צור קשר</a></li>
         </ul>
       </nav>
-      <div class="lang-select"><span class="globe-icon">🌐</span> עברית</div>
+      <div class="lang-select" id="lang-select">
+        <button type="button" id="lang-toggle" class="lang-toggle">
+          <span class="globe-icon">🌐</span> <span id="lang-current">עברית</span>
+        </button>
+        <div class="lang-dropdown hidden" id="lang-dropdown">
+          <button type="button" class="lang-option" data-lang="he">עברית</button>
+          <button type="button" class="lang-option" data-lang="en">English</button>
+        </div>
+      </div>
       <div class="nav-auth" id="nav-auth-guest">
-        <a href="login.html?tab=register" class="nav-chip">הרשמה</a>
-        <a href="login.html?tab=login" class="nav-chip">התחברות</a>
+        <a href="login.html?tab=register" class="nav-chip" data-i18n="auth-register">הרשמה</a>
+        <a href="login.html?tab=login" class="nav-chip" data-i18n="auth-login">התחברות</a>
       </div>
       <div class="nav-auth hidden" id="nav-auth-user">
-        <button type="button" class="nav-chip" id="nav-logout-btn">התנתקות</button>
+        <button type="button" class="nav-chip" id="nav-logout-btn" data-i18n="auth-logout">התנתקות</button>
       </div>
     </div>
   </header>
@@ -47,14 +55,14 @@
       </a>
     </div>
     <div class="container hero-inner">
-      <p class="hero-tagline">העשייה והמבצעיות<br>בלב ההר</p>
+      <p class="hero-tagline" data-i18n="hero-tagline">העשייה והמבצעיות<br>בלב ההר</p>
     </div>
   </section>
 
   <section id="about" class="section about">
     <div class="container">
-      <h2>אודות היחידה</h2>
-      <p>
+      <h2 data-i18n="about-title">אודות היחידה</h2>
+      <p data-i18n="about-text">
         יחידת הבקרה האזורית 509, הממוקמת על הר רמון, מהווה את הלב הפועם של חיל האוויר הישראלי בניהול והגנת המרחב האווירי בחלקו הדרומי של המדינה.
         היחידה פועלת באופן רציף ומשמשת כעיניים של המדינה באמצעות בניית תמונת שמיים מלאה, גילוי וסיווג של כלל כלי הטיס באזור.
         בזמן שגרה וחירום, היחידה מנהלת את התנועה האווירית הצפופה, המשלבת טיסות אזרחיות, אימונים ופעילות מבצעית, ומנטרלת איומים על ידי הזנקת מטוסי קרב והכוונתם, לצד סנכרון הדוק עם מערכות ההגנה האווירית.
@@ -67,16 +75,16 @@
     <div class="container">
       <div class="links-grid">
         <a href="rpaa-procedures.html" class="link-card">
-          <h3>נהלי רשות התעופה האזרחית לכלי טייס בלתי מאויישים</h3>
+          <h3 data-i18n="link-rpaa">נהלי רשות התעופה האזרחית לכלי טייס בלתי מאויישים</h3>
         </a>
         <a href="iaf509-interface.html" class="link-card">
-          <h3>נהלים וממשק מול יב"א 509</h3>
+          <h3 data-i18n="link-iaf509">נהלים וממשק מול יב"א 509</h3>
         </a>
         <a href="table-1.html" class="link-card">
-          <h3>העלאת רחפנים בשבטה</h3>
+          <h3 data-i18n="link-table1">העלאת רחפנים בשבטה</h3>
         </a>
         <a href="table-2.html" class="link-card">
-          <h3>העלאת רחפנים באשקלון</h3>
+          <h3 data-i18n="link-table2">העלאת רחפנים באשקלון</h3>
         </a>
       </div>
     </div>
@@ -84,7 +92,7 @@
 
   <section id="gallery" class="section gallery">
     <div class="container">
-      <h2>גלריית תמונות</h2>
+      <h2 data-i18n="gallery-title">גלריית תמונות</h2>
       <div class="gallery-grid">
         <div class="gallery-item"><img src="images/unit-509-gallery1.jpg" alt="יחידת הבקרה האזורית 509"></div>
         <div class="gallery-item"><img src="images/unit-509-gallery2.jpg" alt="יחידת הבקרה האזורית 509"></div>
@@ -95,13 +103,14 @@
 
   <footer id="contact" class="site-footer">
     <div class="container">
-      <p class="footer-contact">לשאלות ובירורים: צרו קשר — 08-6502311 / 08-6502310</p>
-      <p>&copy; 2026 יחידת הבקרה האזורית 509</p>
+      <p class="footer-contact" data-i18n="footer-contact">לשאלות ובירורים: צרו קשר — 08-6502311 / 08-6502310</p>
+      <p data-i18n="footer-copyright">&copy; 2026 יחידת הבקרה האזורית 509</p>
     </div>
   </footer>
 
   <script src="script.js"></script>
   <script type="module" src="nav-auth.js"></script>
+  <script src="i18n.js"></script>
 </body>
 </html>
 
