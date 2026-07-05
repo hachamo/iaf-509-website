@@ -151,6 +151,9 @@ function hideError(el) {
       loginForm.classList.add("hidden");
       registerForm.classList.add("hidden");
       document.querySelector(".auth-tabs").classList.add("hidden");
+
+      // אחרי התחברות/הרשמה מוצלחת - חזרה למסך הבית
+      location.href = "index.html";
     } else {
       loggedInPanel.classList.add("hidden");
       document.querySelector(".auth-tabs").classList.remove("hidden");
