@@ -211,6 +211,11 @@ let currentFullName = "";
       if (form) form.classList.add("hidden");
       endFlightForm.classList.toggle("hidden");
       if (endFlightMessage) endFlightMessage.classList.add("hidden");
+      const endNameInput = endFlightForm.querySelector('[name="endOperatorName"]');
+      if (endNameInput) {
+        endNameInput.value = currentFullName;
+        endNameInput.readOnly = true;
+      }
     });
   }
 
