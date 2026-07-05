@@ -371,6 +371,14 @@ body {
   border-color: var(--accent);
 }
 
+.form-field input[readonly],
+.new-drone-form input[readonly] {
+  background: #eef1f3;
+  color: var(--primary);
+  font-weight: bold;
+  cursor: not-allowed;
+}
+
 .form-checkbox {
   display: flex;
   align-items: center;

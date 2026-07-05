@@ -27,18 +27,28 @@ function isWithinOpenHours() {
   return h >= OPEN_HOUR && h < CLOSE_HOUR;
 }
 
+let currentFullName = "";
+
 (function () {
   const loginRequiredBanner = document.getElementById("login-required-banner");
   const consentForm = document.getElementById("consent-form");
 
   // --- הגבלת גישה: רק למשתמשים מחוברים ---
   if (loginRequiredBanner && consentForm) {
-    onAuthStateChanged(auth, (user) => {
+    const nameInput = consentForm.querySelector('input[name="full-name"]');
+    onAuthStateChanged(auth, async (user) => {
       loginRequiredBanner.classList.toggle("hidden", !!user);
       if (user) {
         consentForm.classList.remove("hidden");
+        const snap = await getDoc(doc(db, "users", user.uid));
+        currentFullName = snap.exists() ? snap.data().fullName : "";
+        if (nameInput) {
+          nameInput.value = currentFullName;
+          nameInput.readOnly = true;
+        }
       } else {
         consentForm.classList.add("hidden");
+        currentFullName = "";
       }
     });
   }
@@ -149,6 +159,11 @@ function isWithinOpenHours() {
     addBtn.addEventListener("click", () => {
       if (endFlightForm) endFlightForm.classList.add("hidden");
       form.classList.toggle("hidden");
+      const opNameInput = form.querySelector('[name="operatorName"]');
+      if (opNameInput) {
+        opNameInput.value = currentFullName;
+        opNameInput.readOnly = true;
+      }
     });
   }
 
