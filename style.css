@@ -559,6 +559,11 @@ td input:focus {
   font-weight: bold;
 }
 
+.table-closed-banner a {
+  color: #a83232;
+  text-decoration: underline;
+}
+
 .new-drone-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));

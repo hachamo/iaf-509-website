@@ -1,4 +1,4 @@
-import { db } from "./firebase-init.js";
+import { db, auth } from "./firebase-init.js";
 import {
   collection,
   addDoc,
@@ -13,6 +13,7 @@ import {
   query,
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const OPEN_HOUR = 8;
 const CLOSE_HOUR = 19;
@@ -26,14 +27,22 @@ function isWithinOpenHours() {
   return h >= OPEN_HOUR && h < CLOSE_HOUR;
 }
 
-function getOwnerId() {
-  let id = localStorage.getItem("drone-owner-id");
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem("drone-owner-id", id);
+(function () {
+  const loginRequiredBanner = document.getElementById("login-required-banner");
+  const consentForm = document.getElementById("consent-form");
+
+  // --- הגבלת גישה: רק למשתמשים מחוברים ---
+  if (loginRequiredBanner && consentForm) {
+    onAuthStateChanged(auth, (user) => {
+      loginRequiredBanner.classList.toggle("hidden", !!user);
+      if (user) {
+        consentForm.classList.remove("hidden");
+      } else {
+        consentForm.classList.add("hidden");
+      }
+    });
   }
-  return id;
-}
+})();
 
 (function () {
   const table = document.getElementById("drone-table");
@@ -59,7 +68,12 @@ function getOwnerId() {
 
   const rowsCol = collection(db, collectionId + "_drones");
   const metaRef = doc(db, "meta", collectionId);
-  const ownerId = getOwnerId();
+
+  // ownerId מבוסס על המשתמש המחובר (Firebase Auth) - מתעדכן כשמצב ההתחברות משתנה
+  let ownerId = null;
+  onAuthStateChanged(auth, (user) => {
+    ownerId = user ? user.uid : null;
+  });
 
   // --- חלון שעות פתיחה/סגירה ---
   function updateOpenState() {
