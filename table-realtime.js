@@ -15,16 +15,23 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const OPEN_HOUR = 8;
-const CLOSE_HOUR = 19;
+// חלון חיי המאגר (מתי הנתונים נפתחים/מתאפסים)
+const RESET_HOUR = 19;
+
+// חלון הגישה בפועל לטבלה (צפייה/הוספה/סיום הטסה)
+const ACCESS_OPEN_HOUR = 8 + 25 / 60; // 08:25
+const ACCESS_CLOSE_HOUR = 17.5; // 17:30
+
+// שעת ההתחלה המאוחרת ביותר שניתן לבחור בטופס "הוספת רחפן"
+const LATEST_START_TIME = "17:00";
 
 function todayStr() {
   return new Date().toLocaleDateString("en-CA"); // YYYY-MM-DD בזמן מקומי
 }
 
-function isWithinOpenHours() {
+function isWithinAccessWindow() {
   const h = new Date().getHours() + new Date().getMinutes() / 60;
-  return h >= OPEN_HOUR && h < CLOSE_HOUR;
+  return h >= ACCESS_OPEN_HOUR && h < ACCESS_CLOSE_HOUR;
 }
 
 let currentFullName = "";
@@ -87,7 +94,7 @@ let currentFullName = "";
 
   // --- חלון שעות פתיחה/סגירה ---
   function updateOpenState() {
-    const open = isWithinOpenHours();
+    const open = isWithinAccessWindow();
     if (actionButtons) actionButtons.classList.toggle("hidden", !open);
     if (closedBanner) closedBanner.classList.toggle("hidden", open);
     if (!open && form) form.classList.add("hidden");
@@ -97,7 +104,7 @@ let currentFullName = "";
   // --- איפוס יומי אוטומטי בשעה 19:00 ---
   async function checkDailyReset() {
     const now = new Date();
-    if (now.getHours() < CLOSE_HOUR) return;
+    if (now.getHours() < RESET_HOUR) return;
 
     const metaSnap = await getDoc(metaRef);
     const lastReset = metaSnap.exists() ? metaSnap.data().lastResetDate : null;
@@ -189,13 +196,19 @@ let currentFullName = "";
         return;
       }
 
+      const startTime = fd.get("startTime");
+      if (startTime > LATEST_START_TIME) {
+        alert(`שעת התחלת פעילות לא יכולה להיות אחרי ${LATEST_START_TIME}.`);
+        return;
+      }
+
       await addDoc(rowsCol, {
         droneType: fd.get("droneType"),
         operatorName: fd.get("operatorName"),
         quantity: fd.get("quantity"),
         phone1: phone1,
         phone2: phone2 || "-",
-        startTime: fd.get("startTime"),
+        startTime: startTime,
         status: "airborne",
         ownerId: ownerId,
         createdAt: serverTimestamp()
