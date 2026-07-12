@@ -515,6 +515,60 @@ tbody tr:nth-child(even) {
   margin-top: 4px;
 }
 
+/* Modal אימות שמירת הטסה */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 20px;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 8px;
+  border-top: 4px solid var(--accent);
+  padding: 28px 26px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.modal-box h3 {
+  color: var(--primary);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.modal-details {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 18px;
+}
+
+.modal-details li {
+  margin-bottom: 12px;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.modal-details strong {
+  color: var(--primary);
+}
+
+.modal-warning {
+  background: #fbe9e7;
+  color: #a83232;
+  border-right: 3px solid #a83232;
+  padding: 12px 14px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 td input {
   width: 100%;
   border: 1px solid #c3cad0;

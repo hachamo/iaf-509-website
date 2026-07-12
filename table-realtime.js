@@ -181,8 +181,18 @@ let currentFullName = "";
     });
   }
 
+  // --- מודל אימות לפני שמירת הטסה ---
+  const confirmModal = document.getElementById("confirm-drone-modal");
+  const confirmOperatorName = document.getElementById("confirm-operator-name");
+  const confirmPhone1 = document.getElementById("confirm-phone1");
+  const confirmPhone2 = document.getElementById("confirm-phone2");
+  const confirmStartTime = document.getElementById("confirm-start-time");
+  const confirmDroneBtn = document.getElementById("confirm-drone-btn");
+  const cancelConfirmDroneBtn = document.getElementById("cancel-confirm-drone-btn");
+  let pendingDroneEntry = null;
+
   if (saveBtn && form) {
-    saveBtn.addEventListener("click", async () => {
+    saveBtn.addEventListener("click", () => {
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
@@ -202,7 +212,7 @@ let currentFullName = "";
         return;
       }
 
-      await addDoc(rowsCol, {
+      pendingDroneEntry = {
         droneType: fd.get("droneType"),
         operatorName: fd.get("operatorName"),
         quantity: fd.get("quantity"),
@@ -212,9 +222,33 @@ let currentFullName = "";
         status: "airborne",
         ownerId: ownerId,
         createdAt: serverTimestamp()
-      });
+      };
+
+      if (confirmModal) {
+        confirmOperatorName.textContent = pendingDroneEntry.operatorName;
+        confirmPhone1.textContent = pendingDroneEntry.phone1;
+        confirmPhone2.textContent = pendingDroneEntry.phone2;
+        confirmStartTime.textContent = pendingDroneEntry.startTime;
+        confirmModal.classList.remove("hidden");
+      }
+    });
+  }
+
+  if (confirmDroneBtn) {
+    confirmDroneBtn.addEventListener("click", async () => {
+      if (!pendingDroneEntry) return;
+      await addDoc(rowsCol, pendingDroneEntry);
+      pendingDroneEntry = null;
+      confirmModal.classList.add("hidden");
       form.reset();
       form.classList.add("hidden");
+    });
+  }
+
+  if (cancelConfirmDroneBtn) {
+    cancelConfirmDroneBtn.addEventListener("click", () => {
+      pendingDroneEntry = null;
+      confirmModal.classList.add("hidden");
     });
   }
 

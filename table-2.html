@@ -146,6 +146,22 @@
           </div>
         </form>
 
+        <div id="confirm-drone-modal" class="modal-overlay hidden">
+          <div class="modal-box">
+            <h3>אימות פרטי הטסה</h3>
+            <ul class="modal-details">
+              <li><strong>שם המפעיל:</strong> <span id="confirm-operator-name"></span></li>
+              <li><strong>מספרי הטלפון שלך הם:</strong> מספר 1 - <span id="confirm-phone1"></span> / מספר 2 - <span id="confirm-phone2"></span></li>
+              <li><strong>שעת התחלה:</strong> <span id="confirm-start-time"></span></li>
+            </ul>
+            <p class="modal-warning">יש לתאם עם כל המפעילים שכרגע באוויר</p>
+            <div class="new-drone-form-actions">
+              <button type="button" id="confirm-drone-btn">אישור ושמירה</button>
+              <button type="button" id="cancel-confirm-drone-btn">ביטול</button>
+            </div>
+          </div>
+        </div>
+
         <form id="end-flight-form" class="new-drone-form hidden">
           <label>
             <span>שם המפעיל</span>
