@@ -31,7 +31,8 @@ const ALLOWED_REDIRECTS = [
   "table-1.html",
   "table-2.html",
   "rpaa-procedures.html",
-  "iaf509-interface.html"
+  "iaf509-interface.html",
+  "profile.html"
 ];
 
 function getRedirectTarget() {

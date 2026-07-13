@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>האזור האישי שלי | יחידת הבקרה האזורית 509</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">יחידת הבקרה האזורית 509</div>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="תפריט">☰</button>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="index.html">בית</a></li>
+          <li><a href="iaf509-interface.html">נהלים וממשק מול יב"א 509</a></li>
+          <li><a href="index.html#drone-launch">הטסת רחפן</a></li>
+          <li><a href="profile.html" class="active">האזור האישי שלי</a></li>
+          <li><a href="index.html#contact">צור קשר</a></li>
+        </ul>
+      </nav>
+      <div class="nav-auth" id="nav-auth-guest">
+        <a href="login.html?tab=register" class="nav-chip">הרשמה</a>
+        <a href="login.html?tab=login" class="nav-chip">התחברות</a>
+      </div>
+      <div class="nav-auth hidden" id="nav-auth-user">
+        <button type="button" class="nav-chip" id="nav-logout-btn">התנתקות</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>האזור האישי שלי</h1>
+      <p>פרטי החשבון, תוקף ההצהרה וסטטוס ההטסה שלך</p>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container">
+
+      <p id="profile-login-required" class="table-closed-banner hidden">
+        כדי לצפות באזור האישי, יש להתחבר או להירשם למערכת תחילה.
+        <a href="login.html?tab=login&redirect=profile.html">התחברות</a> / <a href="login.html?tab=register&redirect=profile.html">הרשמה</a>
+      </p>
+
+      <div id="profile-card" class="consent-form auth-form hidden">
+        <ul class="modal-details">
+          <li><strong>שם משתמש:</strong> <span id="profile-username"></span></li>
+          <li><strong>מספר טלפון:</strong> <span id="profile-phone"></span></li>
+          <li><strong>תוקף ההצהרה:</strong> <span id="profile-consent"></span></li>
+          <li><strong>סטטוס הטסה:</strong> <span id="profile-flight-status"></span></li>
+        </ul>
+        <div id="profile-flight-action" class="hidden">
+          <a id="profile-end-flight-link" href="#" class="nav-chip profile-end-flight-btn">סיום הטסה</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <p class="footer-contact">לשאלות ובירורים: צרו קשר — 08-6502311 / 08-6502310</p>
+      <p>&copy; 2026 יחידת הבקרה האזורית 509</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module" src="nav-auth.js"></script>
+  <script type="module" src="profile.js"></script>
+</body>
+</html>

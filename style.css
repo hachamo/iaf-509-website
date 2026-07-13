@@ -285,6 +285,26 @@ body {
   background: var(--accent);
 }
 
+#profile-flight-action {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.profile-end-flight-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.profile-end-flight-btn:hover {
+  background: var(--accent);
+}
+
 #logged-in-message {
   text-align: center;
   font-weight: bold;

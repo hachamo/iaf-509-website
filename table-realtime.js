@@ -39,6 +39,19 @@ function isWithinAccessWindow() {
 
 let currentFullName = "";
 
+// פותח אוטומטית את טופס "סיום הטסה" אם הגענו לעמוד עם ?openEndFlight=1
+// (למשל דרך כפתור "סיום הטסה" בעמוד האזור האישי)
+let didAutoOpenEndFlight = false;
+function maybeAutoOpenEndFlight() {
+  if (didAutoOpenEndFlight) return;
+  if (new URLSearchParams(location.search).get("openEndFlight") !== "1") return;
+  const btn = document.getElementById("end-flight-btn");
+  if (btn && !btn.closest(".hidden") && !btn.classList.contains("hidden")) {
+    didAutoOpenEndFlight = true;
+    btn.click();
+  }
+}
+
 (function () {
   const loginRequiredBanner = document.getElementById("login-required-banner");
   const consentForm = document.getElementById("consent-form");
@@ -76,6 +89,7 @@ let currentFullName = "";
     if (consentValid) {
       consentForm.classList.add("hidden");
       if (tableSection) tableSection.classList.remove("hidden");
+      maybeAutoOpenEndFlight();
     } else {
       consentForm.classList.remove("hidden");
       if (tableSection) tableSection.classList.add("hidden");
@@ -97,6 +111,7 @@ let currentFullName = "";
 
     consentForm.classList.add("hidden");
     if (tableSection) tableSection.classList.remove("hidden");
+    maybeAutoOpenEndFlight();
   });
 })();
 
