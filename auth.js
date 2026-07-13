@@ -96,19 +96,26 @@ function getRedirectTarget() {
 
     const usernameKey = username.toLowerCase();
     const usernameRef = doc(db, "usernames", usernameKey);
+    const phoneRef = doc(db, "phones", phone);
+
+    // מייצרים אימייל פנימי קבוע ואקראי, שלא תלוי בשם המשתמש -
+    // כך שינוי שם משתמש בעתיד לא ידרוש לגעת בחשבון ה-Firebase Auth בכלל
+    const internalEmail = crypto.randomUUID() + USERNAME_DOMAIN;
 
     try {
-      const existing = await getDoc(usernameRef);
-      if (existing.exists()) {
+      const existingUsername = await getDoc(usernameRef);
+      if (existingUsername.exists()) {
         showError(registerError, "שם המשתמש כבר תפוס. יש לבחור שם משתמש אחר.");
         return;
       }
 
-      const cred = await createUserWithEmailAndPassword(
-        auth,
-        usernameToEmail(username),
-        password
-      );
+      const existingPhone = await getDoc(phoneRef);
+      if (existingPhone.exists()) {
+        showError(registerError, "מספר הטלפון כבר רשום במערכת.");
+        return;
+      }
+
+      const cred = await createUserWithEmailAndPassword(auth, internalEmail, password);
 
       await setDoc(doc(db, "users", cred.user.uid), {
         fullName,
@@ -117,7 +124,8 @@ function getRedirectTarget() {
         createdAt: new Date().toISOString()
       });
 
-      await setDoc(usernameRef, { uid: cred.user.uid });
+      await setDoc(usernameRef, { uid: cred.user.uid, internalEmail });
+      await setDoc(phoneRef, { uid: cred.user.uid });
 
       registerForm.reset();
       location.href = getRedirectTarget();
@@ -141,7 +149,13 @@ function getRedirectTarget() {
     const password = fd.get("password");
 
     try {
-      await signInWithEmailAndPassword(auth, usernameToEmail(username), password);
+      const usernameSnap = await getDoc(doc(db, "usernames", username.toLowerCase()));
+      // תאימות אחורה: חשבונות ישנים שנוצרו לפני המעבר לאימייל פנימי אקראי
+      const loginEmail = usernameSnap.exists() && usernameSnap.data().internalEmail
+        ? usernameSnap.data().internalEmail
+        : usernameToEmail(username);
+
+      await signInWithEmailAndPassword(auth, loginEmail, password);
       loginForm.reset();
       location.href = getRedirectTarget();
     } catch (err) {

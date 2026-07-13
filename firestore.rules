@@ -17,6 +17,12 @@ service cloud.firestore {
     match /usernames/{username} {
       allow read: if true;
       allow create: if request.auth != null && request.auth.uid == request.resource.data.uid;
+      allow delete: if request.auth != null && resource.data.uid == request.auth.uid;
+    }
+    match /phones/{phone} {
+      allow read: if true;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.uid;
+      allow delete: if request.auth != null && resource.data.uid == request.auth.uid;
     }
   }
 }

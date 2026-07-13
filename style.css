@@ -285,6 +285,22 @@ body {
   background: var(--accent);
 }
 
+.profile-change-btn {
+  margin-right: 10px;
+  padding: 3px 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--primary);
+  background: var(--light);
+  border: 1px solid #c3cad0;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.profile-change-btn:hover {
+  background: #e4e9ed;
+}
+
 #profile-flight-action {
   margin-top: 10px;
   text-align: center;
