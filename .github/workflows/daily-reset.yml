@@ -7,6 +7,11 @@ on:
     - cron: "0 16 * * *"
     - cron: "0 17 * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "הרץ מיידית גם אם לא השעה 19:00 (לבדיקה בלבד)"
+        type: boolean
+        default: false
 
 jobs:
   reset:
@@ -26,3 +31,4 @@ jobs:
       - run: node reset.mjs
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FORCE_RUN: ${{ inputs.force }}

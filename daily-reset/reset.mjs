@@ -10,7 +10,9 @@ const israelHour = Number(
   }).format(new Date())
 );
 
-if (israelHour !== 19) {
+const force = process.env.FORCE_RUN === "true";
+
+if (israelHour !== 19 && !force) {
   console.log(`Not 19:00 Israel time (currently ${israelHour}:00) - skipping.`);
   process.exit(0);
 }
