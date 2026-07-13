@@ -60,6 +60,7 @@ function maybeAutoOpenEndFlight() {
   if (!loginRequiredBanner || !consentForm) return;
 
   const nameInput = consentForm.querySelector('input[name="full-name"]');
+  const consentPhoneInput = consentForm.querySelector('input[name="phone"]');
   let currentUid = null;
 
   // --- הגבלת גישה: רק למשתמשים מחוברים, ורק אם חתמו על ההסכמה בשבוע האחרון ---
@@ -81,6 +82,10 @@ function maybeAutoOpenEndFlight() {
     if (nameInput) {
       nameInput.value = currentFullName;
       nameInput.readOnly = true;
+    }
+    if (consentPhoneInput) {
+      consentPhoneInput.value = data.phone || "";
+      consentPhoneInput.readOnly = true;
     }
 
     const consentSignedAt = data.consentSignedAt ? data.consentSignedAt.toMillis() : 0;

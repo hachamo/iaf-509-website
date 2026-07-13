@@ -8,12 +8,14 @@ import {
   const guestBox = document.getElementById("nav-auth-guest");
   const userBox = document.getElementById("nav-auth-user");
   const logoutBtn = document.getElementById("nav-logout-btn");
+  const profileNavItem = document.getElementById("nav-profile-item");
 
   if (!guestBox || !userBox) return;
 
   onAuthStateChanged(auth, (user) => {
     guestBox.classList.toggle("hidden", !!user);
     userBox.classList.toggle("hidden", !user);
+    if (profileNavItem) profileNavItem.classList.toggle("hidden", !user);
   });
 
   if (logoutBtn) {
