@@ -1,0 +1,28 @@
+name: Daily table reset at 19:00 Israel time
+
+on:
+  schedule:
+    # רץ פעמיים ביום ב-UTC (16:00 ו-17:00) כדי לכסות שעון קיץ/חורף בישראל.
+    # הסקריפט עצמו בודק שהשעה בישראל היא בדיוק 19:00 ומדלג אם לא.
+    - cron: "0 16 * * *"
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: daily-reset
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - run: node reset.mjs
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
