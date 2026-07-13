@@ -23,4 +23,13 @@ import {
       }
     });
   }
+
+  // מוסיפים לכל קישורי ההתחברות/הרשמה בעמוד את הדף הנוכחי,
+  // כדי שאחרי התחברות/הרשמה המשתמש יחזור לכאן ולא תמיד לעמוד הבית
+  const currentPage = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll('a[href^="login.html"]').forEach((a) => {
+    const url = new URL(a.getAttribute("href"), location.href);
+    url.searchParams.set("redirect", currentPage);
+    a.setAttribute("href", url.pathname + url.search);
+  });
 })();

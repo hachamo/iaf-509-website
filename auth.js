@@ -26,6 +26,19 @@ function hideError(el) {
   el.classList.add("hidden");
 }
 
+const ALLOWED_REDIRECTS = [
+  "index.html",
+  "table-1.html",
+  "table-2.html",
+  "rpaa-procedures.html",
+  "iaf509-interface.html"
+];
+
+function getRedirectTarget() {
+  const requested = new URLSearchParams(location.search).get("redirect");
+  return ALLOWED_REDIRECTS.includes(requested) ? requested : "index.html";
+}
+
 (function () {
   const tabLogin = document.getElementById("tab-login");
   const tabRegister = document.getElementById("tab-register");
@@ -106,7 +119,7 @@ function hideError(el) {
       await setDoc(usernameRef, { uid: cred.user.uid });
 
       registerForm.reset();
-      location.href = "index.html";
+      location.href = getRedirectTarget();
     } catch (err) {
       showError(registerError, "שגיאה בהרשמה: " + (err.message || err));
     }
@@ -129,7 +142,7 @@ function hideError(el) {
     try {
       await signInWithEmailAndPassword(auth, usernameToEmail(username), password);
       loginForm.reset();
-      location.href = "index.html";
+      location.href = getRedirectTarget();
     } catch (err) {
       showError(loginError, "שם משתמש או סיסמה שגויים.");
     }
