@@ -1,24 +1,14 @@
-// טופס הסכמה - נדרש מחדש בכל כניסה לעמוד, לפני חשיפת הטבלה
+// טופס הסכמה - כפתור השליחה נפתח רק אחרי סימון תיבת האישור.
+// לוגיקת השליחה עצמה (כולל תוקף חתימה של שבוע) נמצאת ב-table-realtime.js
 (function () {
   const form = document.getElementById('consent-form');
   if (!form) return;
 
   const checkbox = document.getElementById('consent-checkbox');
   const submitBtn = document.getElementById('consent-submit');
-  const tableSection = document.getElementById('table-section');
 
   checkbox.addEventListener('change', () => {
     submitBtn.disabled = !checkbox.checked;
-  });
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-    form.classList.add('hidden');
-    tableSection.classList.remove('hidden');
   });
 })();
 

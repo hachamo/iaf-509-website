@@ -25,6 +25,9 @@ const ACCESS_CLOSE_HOUR = 17.5; // 17:30
 // שעת ההתחלה המאוחרת ביותר שניתן לבחור בטופס "הוספת רחפן"
 const LATEST_START_TIME = "17:00";
 
+// תוקף חתימת טופס ההסכמה - שבוע ימים
+const CONSENT_VALID_MS = 7 * 24 * 60 * 60 * 1000;
+
 function todayStr() {
   return new Date().toLocaleDateString("en-CA"); // YYYY-MM-DD בזמן מקומי
 }
@@ -39,26 +42,62 @@ let currentFullName = "";
 (function () {
   const loginRequiredBanner = document.getElementById("login-required-banner");
   const consentForm = document.getElementById("consent-form");
+  const tableSection = document.getElementById("table-section");
 
-  // --- הגבלת גישה: רק למשתמשים מחוברים ---
-  if (loginRequiredBanner && consentForm) {
-    const nameInput = consentForm.querySelector('input[name="full-name"]');
-    onAuthStateChanged(auth, async (user) => {
-      loginRequiredBanner.classList.toggle("hidden", !!user);
-      if (user) {
-        consentForm.classList.remove("hidden");
-        const snap = await getDoc(doc(db, "users", user.uid));
-        currentFullName = snap.exists() ? snap.data().fullName : "";
-        if (nameInput) {
-          nameInput.value = currentFullName;
-          nameInput.readOnly = true;
-        }
-      } else {
-        consentForm.classList.add("hidden");
-        currentFullName = "";
-      }
+  if (!loginRequiredBanner || !consentForm) return;
+
+  const nameInput = consentForm.querySelector('input[name="full-name"]');
+  let currentUid = null;
+
+  // --- הגבלת גישה: רק למשתמשים מחוברים, ורק אם חתמו על ההסכמה בשבוע האחרון ---
+  onAuthStateChanged(auth, async (user) => {
+    loginRequiredBanner.classList.toggle("hidden", !!user);
+
+    if (!user) {
+      consentForm.classList.add("hidden");
+      if (tableSection) tableSection.classList.add("hidden");
+      currentFullName = "";
+      currentUid = null;
+      return;
+    }
+
+    currentUid = user.uid;
+    const snap = await getDoc(doc(db, "users", user.uid));
+    const data = snap.exists() ? snap.data() : {};
+    currentFullName = data.fullName || "";
+    if (nameInput) {
+      nameInput.value = currentFullName;
+      nameInput.readOnly = true;
+    }
+
+    const consentSignedAt = data.consentSignedAt ? data.consentSignedAt.toMillis() : 0;
+    const consentValid = Date.now() - consentSignedAt < CONSENT_VALID_MS;
+
+    if (consentValid) {
+      consentForm.classList.add("hidden");
+      if (tableSection) tableSection.classList.remove("hidden");
+    } else {
+      consentForm.classList.remove("hidden");
+      if (tableSection) tableSection.classList.add("hidden");
+    }
+  });
+
+  // --- שליחת טופס ההסכמה - שומרת תוקף חתימה של שבוע ---
+  consentForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!consentForm.checkValidity()) {
+      consentForm.reportValidity();
+      return;
+    }
+    if (!currentUid) return;
+
+    await updateDoc(doc(db, "users", currentUid), {
+      consentSignedAt: serverTimestamp()
     });
-  }
+
+    consentForm.classList.add("hidden");
+    if (tableSection) tableSection.classList.remove("hidden");
+  });
 })();
 
 (function () {
