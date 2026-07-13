@@ -101,11 +101,10 @@ let currentFullName = "";
     if (!open && endFlightForm) endFlightForm.classList.add("hidden");
   }
 
-  // --- איפוס יומי אוטומטי בשעה 19:00 ---
+  // --- איפוס יומי אוטומטי ---
+  // מתבצע בכניסה הראשונה בכל יום חדש (בכל שעה שהיא), כדי שנתונים "מאתמול"
+  // לא יישארו מוצגים אם אף אחד לא נכנס בין 19:00 לשעה שבה מישהו נכנס למחרת.
   async function checkDailyReset() {
-    const now = new Date();
-    if (now.getHours() < RESET_HOUR) return;
-
     const metaSnap = await getDoc(metaRef);
     const lastReset = metaSnap.exists() ? metaSnap.data().lastResetDate : null;
     const today = todayStr();
