@@ -327,11 +327,15 @@ body {
   background: var(--accent);
 }
 
-.profile-change-btn {
+.profile-details button.profile-change-btn {
+  display: inline-block;
+  width: auto;
   flex-shrink: 0;
   padding: 3px 12px;
   font-size: 0.8rem;
   font-weight: bold;
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--primary);
   background: var(--light);
   border: 1px solid #c3cad0;
@@ -339,7 +343,7 @@ body {
   cursor: pointer;
 }
 
-.profile-change-btn:hover {
+.profile-details button.profile-change-btn:hover {
   background: #e4e9ed;
 }
 
@@ -640,6 +644,7 @@ tbody tr:nth-child(even) {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
   gap: 12px;
 }
 
