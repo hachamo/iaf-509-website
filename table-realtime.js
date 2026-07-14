@@ -214,9 +214,13 @@ function maybeAutoOpenEndFlight() {
     const q = query(rowsCol, orderBy("createdAt", "asc"));
     onSnapshot(q, (snapshot) => {
       tbody.innerHTML = "";
+      let hasOwnActiveFlight = false;
       snapshot.forEach((docSnap) => {
         tbody.appendChild(renderRow(docSnap));
+        if (docSnap.data().ownerId === ownerId) hasOwnActiveFlight = true;
       });
+      // מסתירים את כפתור "הוספת רחפן" כשלמשתמש כבר יש הטסה פעילה בטבלה הזו
+      if (addBtn) addBtn.classList.toggle("hidden", hasOwnActiveFlight);
     });
   }
 
