@@ -47,20 +47,24 @@
       </p>
 
       <div id="profile-card" class="consent-form auth-form hidden">
-        <ul class="modal-details">
+        <ul class="modal-details profile-details">
           <li>
-            <strong>שם משתמש:</strong> <span id="profile-username"></span>
+            <span class="profile-row-label">שם משתמש: <span id="profile-username" class="profile-value"></span></span>
             <button type="button" id="open-username-change-btn" class="profile-change-btn">שינוי</button>
           </li>
           <li>
-            <strong>מספר טלפון:</strong> <span id="profile-phone"></span>
+            <span class="profile-row-label">מספר טלפון: <span id="profile-phone" class="profile-value"></span></span>
             <button type="button" id="open-phone-change-btn" class="profile-change-btn">שינוי</button>
           </li>
-          <li><strong>תוקף ההצהרה:</strong> <span id="profile-consent"></span></li>
-          <li><strong>סטטוס הטסה:</strong> <span id="profile-flight-status"></span></li>
+          <li>
+            <span class="profile-row-label">תוקף ההצהרה: <span id="profile-consent" class="profile-value"></span></span>
+          </li>
+          <li>
+            <span class="profile-row-label">סטטוס הטסה: <span id="profile-flight-status" class="profile-value"></span></span>
+          </li>
         </ul>
         <div id="profile-flight-action" class="hidden">
-          <a id="profile-end-flight-link" href="#" class="nav-chip profile-end-flight-btn">סיום הטסה</a>
+          <a id="profile-end-flight-link" href="#" class="profile-end-flight-btn">סיום הטסה</a>
         </div>
       </div>
 

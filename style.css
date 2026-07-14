@@ -328,7 +328,7 @@ body {
 }
 
 .profile-change-btn {
-  margin-right: 10px;
+  flex-shrink: 0;
   padding: 3px 12px;
   font-size: 0.8rem;
   font-weight: bold;
@@ -351,7 +351,7 @@ body {
 .profile-end-flight-btn {
   display: inline-block;
   padding: 10px 20px;
-  background: var(--primary);
+  background: #000;
   color: #fff;
   border-radius: 4px;
   font-weight: bold;
@@ -360,7 +360,7 @@ body {
 }
 
 .profile-end-flight-btn:hover {
-  background: var(--accent);
+  background: #222;
 }
 
 #logged-in-message {
@@ -633,6 +633,22 @@ tbody tr:nth-child(even) {
 }
 
 .modal-details strong {
+  color: var(--primary);
+}
+
+.profile-details li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.profile-row-label {
+  color: var(--text);
+}
+
+.profile-value {
+  font-weight: bold;
   color: var(--primary);
 }
 
