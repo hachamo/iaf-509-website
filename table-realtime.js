@@ -11,7 +11,8 @@ import {
   getDocs,
   serverTimestamp,
   query,
-  orderBy
+  orderBy,
+  where
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -250,7 +251,7 @@ function maybeAutoOpenEndFlight() {
   let pendingDroneEntry = null;
 
   if (saveBtn && form) {
-    saveBtn.addEventListener("click", () => {
+    saveBtn.addEventListener("click", async () => {
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
@@ -267,6 +268,14 @@ function maybeAutoOpenEndFlight() {
       const startTime = fd.get("startTime");
       if (startTime > LATEST_START_TIME) {
         alert(`שעת התחלת פעילות לא יכולה להיות אחרי ${LATEST_START_TIME}.`);
+        return;
+      }
+
+      // מותרת הטסה פעילה אחת בלבד לכל משתמש בטבלה הזו במקביל
+      const existingQuery = query(rowsCol, where("ownerId", "==", ownerId));
+      const existingSnap = await getDocs(existingQuery);
+      if (!existingSnap.empty) {
+        alert("כבר יש לך הטסה פעילה בטבלה זו. יש לסיים אותה לפני הוספת הטסה נוספת.");
         return;
       }
 
