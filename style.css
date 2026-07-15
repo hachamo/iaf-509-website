@@ -94,18 +94,14 @@ body {
 }
 
 .main-nav a.nav-cta {
-  color: #fff;
-  background: var(--accent);
-  padding: 8px 18px;
-  border-radius: 20px;
+  color: var(--accent-light);
   font-weight: bold;
   text-transform: none;
   letter-spacing: normal;
 }
 
 .main-nav a.nav-cta:hover {
-  background: var(--accent-light);
-  border-bottom: none;
+  color: #fff;
 }
 
 /* Hero */
